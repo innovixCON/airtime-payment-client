@@ -1,0 +1,151 @@
+:root {
+  --primary-color: #f0f0f0;
+  --secondary-color: #333;
+  --accent-color: #ff9900;
+  --font-family: Arial, sans-serif;
+}
+
+/* Style the navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  height: 8rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+/* Style the logo image */
+.navbar img {
+  height: 7rem;
+  width: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Add a scale effect on hover */
+.navbar img:hover {
+  transform: scale(1.1);
+}
+
+/* Style the links container */
+.navbar div {
+  display: flex;
+  gap: 3rem;
+}
+
+/* Style the links */
+.navbar h1 {
+  font-family: var(--font-family);
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Add a color change on hover */
+.navbar h1:hover {
+  color: var(--accent-color);
+}
+
+/* Use media queries to make the navbar responsive */
+
+/* Add some spacing for the content below the fixed navbar */
+body {
+  margin-top: 8rem;
+  /* Adjust this value based on the height of your navbar */
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+}
+
+.imageCont {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.imageCont::after {
+  width: 100%;
+  height: 100%;
+  content: '';
+  position: absolute;
+  top: 0;
+  background-color: black;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  opacity: 0.5;
+}
+
+.navbar .hamburger {
+  display: none;
+}
+
+.links {
+  display: flex;
+  gap: 3rem;
+
+}
+
+@media screen and (max-width: 1040) {
+  .navbar {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    z-index: -3;
+    top: 0;
+  }
+
+  .navbar .hamburger {
+    display: initial;
+  }
+
+  .links.active {
+    left: 0;
+  }
+
+  .links {
+    display: block
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    top: 0;
+    justify-content: center;
+  }
+
+  .navbar .hamburger {
+    display: initial;
+  }
+
+  .links {
+    display: block
+  }
+
+  .links.active {
+    left: 0;
+  }
+}
