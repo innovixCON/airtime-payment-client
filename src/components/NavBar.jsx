@@ -1,19 +1,18 @@
-// Use this code to replace your existing React component
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
-import '../components/css/style.css';
+import "../components/css/style.css";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
 
-
   return (
     <div className="navbar">
-      <img src={logo} alt="logo" className="logo" />
+      <Link to="/">
+        <img src={logo} alt="Call Africa Logo" className="logo pb-2 pt-2" />
+      </Link>
       <div className={click ? "links active" : "links"}>
         <Link to="/">
           <h1>Home</h1>
@@ -38,6 +37,6 @@ const Navbar = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;

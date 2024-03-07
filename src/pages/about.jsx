@@ -3,7 +3,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 
 function About() {
   return (
-    <div className="bg-black h-screen">
+    <div className="bg-black h-screen -mt-10">
       <footer className="bg-zinc-800 text-white py-12 text-3xl font-light">
         <div className="container mx-auto flex justify-center flex-wrap">
           <div className="w-full md:w-1/3 px-6">

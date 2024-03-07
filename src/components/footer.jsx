@@ -42,7 +42,7 @@ function Footer() {
           </div>
         </div>
         <div className="container mx-auto flex justify-between py-4 border-t border-gray-600 mt-8">
-          <p>Copyright 2023 Call Africa</p>
+          <p>Copyright {new Date().getFullYear()} Call Africa</p>
           <p>Terms & Conditions</p>
         </div>
       </footer>
