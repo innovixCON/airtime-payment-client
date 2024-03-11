@@ -3,7 +3,8 @@ import Home from './pages/Home';
 import About from "./pages/about"
 import Login from "./pages/login"
 import Services from "./pages/services";
-import Footer from "./components/footer"
+import Footer from "./components/footer";
+import ContactUs from "./pages/ContactUs";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/contactUS" element={<ContactUs/>} />
       </Routes>
       <Footer/>
     </Router>
