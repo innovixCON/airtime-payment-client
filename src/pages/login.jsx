@@ -75,14 +75,15 @@ function Login() {
               </span>
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-50 transition-colors duration-200"
-            >
-              Login
-            </button>
-          </form>
-        </div>
+
+          <button
+            type="submit"
+            className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-colors duration-200"
+          >
+            Login
+          </button>
+        </form>
+
       </div>
 
       <Footer />
