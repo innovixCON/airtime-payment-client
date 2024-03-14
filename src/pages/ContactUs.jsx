@@ -14,7 +14,6 @@ function ContactUs() {
         setEmail('');
         setMessage('');
     };
-
     return (
         <div className="bg-black min-h-screen flex flex-col justify-center items-center text-3xl py-32">
             <div className="text-white font-light">
@@ -75,7 +74,7 @@ function ContactUs() {
                             id="message"
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            className="w-full px-4 py-2 rounded-md bg-white text-white focus:outline-none focus:ring-2 focus:ring-gray-500"
+                            className="w-full px-4 py-2 rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-gray-500"
                             rows="10"
                         ></textarea>
                     </div>
