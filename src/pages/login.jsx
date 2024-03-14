@@ -22,7 +22,7 @@ function Login() {
 
   return (
     <>
-      <div className="bg-white  min-h-full h-screen flex justify-center px-4 sm:px-6 lg:px-8 top-0">
+      <div className="bg-white min-h-full h-screen flex justify-center px-4 sm:px-6 lg:px-8 top-0">
         <div className="bg-white w-full max-w-2xl border p-8 rounded-lg shadow-lg h-auto my-auto">
           <h1 className="text-4xl font-bold text-center text-gray-700 mb-4">
             Call Africa
@@ -75,15 +75,14 @@ function Login() {
               </span>
             </div>
 
-
-          <button
-            type="submit"
-            className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-colors duration-200"
-          >
-            Login
-          </button>
-        </form>
-
+            <button
+              type="submit"
+              className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-colors duration-200"
+            >
+              Login
+            </button>
+          </form>
+        </div>
       </div>
 
       <Footer />
