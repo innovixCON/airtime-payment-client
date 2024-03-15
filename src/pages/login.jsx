@@ -36,7 +36,7 @@ function Login() {
       setAuthToken(response.data.access_token);
       setAuthProfile(response.data.user);
       setAuthStatus(true);
-      navigate("/");
+      navigate("/dashboard/");
       console.log("Login successful:", response.message);
 
     } catch (error) {
@@ -47,116 +47,88 @@ function Login() {
   };
 
   return (
-    <div>
-
-      <div className="bg-white min-h-full h-screen flex justify-center px-4 sm:px-6 lg:px-8 top-0">
-        <div className="bg-white w-full max-w-2xl border p-8 rounded-lg shadow-lg h-auto my-auto">
-          <h1 className="text-4xl font-bold text-center text-gray-700 mb-4">
-            Call Africa
-          </h1>
-
-          <p className="text-center text-base text-gray-500 px-6">
-            Login to your account
-          </p>
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
-              <span className="block sm:inline">{error}</span>
-            </div>
-          )
     <>
       <div className="bg-white min-h-full h-screen flex justify-center px-4 sm:px-6 lg:px-8 top-0">
-        <div className="bg-white w-full max-w-2xl border p-8 rounded-lg shadow-lg h-auto my-auto">
-          <h1 className="text-4xl font-bold text-center text-gray-700 mb-4">
-            Call Africa
-          </h1>
+      <div className="bg-white w-full max-w-2xl border p-8 rounded-lg shadow-lg h-auto my-auto">
+        <h1 className="text-4xl font-bold text-center text-gray-700 mb-4">
+          Call Africa
+        </h1>
 
-          <p className="text-center text-base text-gray-500 px-6">
-            Login to your account
-          </p>
+        <p className="text-center text-base text-gray-500 px-6">
+          Login to your account
+        </p>
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+            <span className="block sm:inline">{error}</span>
+          </div>
+        )}
 
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label
-                className="block text-base font-medium text-gray-700"
-                htmlFor="email"
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={handleEmailChange}
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                className="block text-base font-medium text-gray-700"
-                htmlFor="password"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={handlePasswordChange}
-                required
-              />
-            </div>
-<<<<<
-
-            <div className="flex justify-between items-center">
-              <span className="text-base font-medium text-gray-500 hover:text-indigo-500 cursor-pointer">
-                Forgot password?
-              </span>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-colors duration-200"
-              disabled={isLoading}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              className="block text-base font-medium text-gray-700"
+              htmlFor="email"
             >
-              {isLoading ? "Loading..." : "Login"}
-            </button>
-          </form>
+              Email
+            </label>
+            <input
+              id="email"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+          </div>
 
-          <div className="flex justify-center mt-4">
-            <span className="text-base font-medium text-gray-500">
-              Don't have an account?{" "}
-              <Link
-                to="/signup"
-                className="text-red-300 hover:text-red-500 transition-colors duration-200"
-              >
-                Sign Up
-              </Link>
+          <div>
+            <label
+              className="block text-base font-medium text-gray-700"
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+          </div>
+
+          <div className="flex justify-between items-center">
+            <span className="text-base font-medium text-gray-500 hover:text-indigo-500 cursor-pointer">
+              Forgot password?
             </span>
           </div>
 
-            <div className="flex justify-between items-center">
-              <span className="text-base font-medium text-gray-500 hover:text-indigo-500 cursor-pointer">
-                Forgot password?
-              </span>
-            </div>
+          <button
+            type="submit"
+            className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-colors duration-200"
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "Login"}
+          </button>
+        </form>
 
-            <button
-              type="submit"
-              className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-colors duration-200"
+        <div className="flex justify-center mt-4">
+          <span className="text-base font-medium text-gray-500">
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              className="text-red-300 hover:text-red-500 transition-colors duration-200"
             >
-              Login
-            </button>
-          </form>
+              Sign Up
+            </Link>
+          </span>
         </div>
       </div>
-
-      <Footer />
+    </div>
+    <Footer />
     </>
   );
 }

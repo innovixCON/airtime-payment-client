@@ -3,7 +3,6 @@ import Home from './pages/Home';
 import About from "./pages/about"
 import Login from "./pages/login"
 import Services from "./pages/services";
-import Footer from "./components/footer";
 import ContactUs from "./pages/ContactUs";
 import SignUp from "./pages/signup";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
