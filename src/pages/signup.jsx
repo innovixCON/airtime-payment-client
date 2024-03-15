@@ -1,22 +1,44 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import useAuthStore  from "../components/hooks/UseAuthStore";
 
 function SignUp() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
+    phone: '',
     password: '',
-    confirmPassword: '',
   });
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { setAuthStatus } = useAuthStore();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle sign up logic here
-    console.log('Sign up data:', formData);
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post('https://call-africa-a27ed3a5b0f4.herokuapp.com/api/auth/signup', {
+        username: formData.username,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        password: formData.password,
+      });
+
+      console.log('Signup successful:', response.data);
+      navigate('/login');
+      setAuthStatus(true);
+    } catch (error) {
+      setError(error.response.data.error);
+      console.error('Signup error:', error.response.data.error)
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -30,21 +52,27 @@ function SignUp() {
           Create your account
         </p>
 
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+            <span className="block sm:inline">{error}</span>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
               className="block text-base font-medium text-gray-700"
-              htmlFor="name"
+              htmlFor="username"
             >
               Name
             </label>
             <input
-              id="name"
-              name="name"
+              id="username"
+              name="username"
               className="w-full px-4 py-3 border border-gray-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               type="text"
-              placeholder="Name"
-              value={formData.name}
+              placeholder="username"
+              value={formData.username}
               onChange={handleChange}
               required
             />
@@ -72,6 +100,24 @@ function SignUp() {
           <div>
             <label
               className="block text-base font-medium text-gray-700"
+              htmlFor="phone"
+            >
+              Phone
+            </label>
+            <input
+              id="phoneNumber"
+              name="phoneNumber"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              type="text"
+              placeholder="Phone Number"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label
+              className="block text-base font-medium text-gray-700"
               htmlFor="password"
             >
               Password
@@ -87,31 +133,12 @@ function SignUp() {
               required
             />
           </div>
-
-          <div>
-            <label
-              className="block text-base font-medium text-gray-700"
-              htmlFor="confirmPassword"
-            >
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              className="w-full px-4 py-3 border border-gray-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              type="password"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
           <button
             type="submit"
             className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-colors duration-200"
+            disabled={isLoading}
           >
-            Sign Up
+            {isLoading ? "Loading..." : "signUp"}
           </button>
         </form>
 
@@ -120,7 +147,7 @@ function SignUp() {
             Already have an account?{' '}
             <Link
               to="/login"
-              className="text-indigo-500 hover:text-indigo-600 transition-colors duration-200"
+              className=" text-red-300 hover:text-red-500 transition-colors duration-200"
             >
               Login
             </Link>
