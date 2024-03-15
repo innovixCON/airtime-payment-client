@@ -5,6 +5,7 @@ import Login from "./pages/login"
 import Services from "./pages/services";
 import Footer from "./components/footer";
 import ContactUs from "./pages/ContactUs";
+import SignUp from "./pages/signup";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DashboardRoutes from "./Routes/DashbordRoutes";
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/dashboard/*" element={<DashboardRoutes />} />
         <Route path="/contactUS" element={<ContactUs/>} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
   );

@@ -1,12 +1,10 @@
 import React from "react";
-import About from "./about";
 
 const Services = () => {
   const services = [
     "Service 1",
     "Service 2",
     "Service 3",
-    // Add more services here
   ];
   return (
     <div className="-mt-10">
