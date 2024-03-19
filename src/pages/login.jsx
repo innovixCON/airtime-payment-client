@@ -33,11 +33,14 @@ function Login() {
         }
       );
 
-      setAuthToken(response.data.access_token);
-      setAuthProfile(response.data.user);
+      setAuthToken(response.data.data.token);
+      localStorage.setItem('AuthToken', response.data.data.token);
+      localStorage.setItem('UserData', JSON.stringify(response.data.user));
+      setAuthProfile(response.data.data.userData);
       setAuthStatus(true);
-      navigate("/");
-      console.log("Login successful:", response.message);
+      console.log("Login successful:", response.data.message);
+      navigate("/dashboard/");
+    
 
     } catch (error) {
       setError(error.response.data.error);
@@ -45,10 +48,9 @@ function Login() {
       setIsLoading(false);
     }
   };
-
+// console.log("user profile", AuthToken)
   return (
-    <div>
-
+    <>
       <div className="bg-white min-h-full h-screen flex justify-center px-4 sm:px-6 lg:px-8 top-0">
         <div className="bg-white w-full max-w-2xl border p-8 rounded-lg shadow-lg h-auto my-auto">
           <h1 className="text-4xl font-bold text-center text-gray-700 mb-4">
@@ -62,18 +64,7 @@ function Login() {
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
               <span className="block sm:inline">{error}</span>
             </div>
-          )
-    <>
-      <div className="bg-white min-h-full h-screen flex justify-center px-4 sm:px-6 lg:px-8 top-0">
-        <div className="bg-white w-full max-w-2xl border p-8 rounded-lg shadow-lg h-auto my-auto">
-          <h1 className="text-4xl font-bold text-center text-gray-700 mb-4">
-            Call Africa
-          </h1>
-
-          <p className="text-center text-base text-gray-500 px-6">
-            Login to your account
-          </p>
-
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -111,7 +102,6 @@ function Login() {
                 required
               />
             </div>
-<<<<<
 
             <div className="flex justify-between items-center">
               <span className="text-base font-medium text-gray-500 hover:text-indigo-500 cursor-pointer">
@@ -139,23 +129,8 @@ function Login() {
               </Link>
             </span>
           </div>
-
-            <div className="flex justify-between items-center">
-              <span className="text-base font-medium text-gray-500 hover:text-indigo-500 cursor-pointer">
-                Forgot password?
-              </span>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-colors duration-200"
-            >
-              Login
-            </button>
-          </form>
         </div>
       </div>
-
       <Footer />
     </>
   );

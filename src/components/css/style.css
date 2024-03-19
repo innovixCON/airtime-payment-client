@@ -1,3 +1,4 @@
+
 :root {
   --primary-color: #f0f0f0;
   --secondary-color: #333;
@@ -86,7 +87,45 @@ body {
 .links{
   display: flex;
 }
+.active-link {
+  color: var(--accent-color); 
+}
 
+
+.navbar .links a.active-link {
+  color: var(--accent-color);
+}
+.avatar-dropdown {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 67px;
+  /* left: 50%; */
+  transform: translateX(-50%);
+  background-color: #121111;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.dropdown button {
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+
+  text-align: center;
+
+
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background-color: #2d2c2c;
+}
 @media screen and (max-width: 1040) {
   .navbar .links {
     flex-direction: row;
