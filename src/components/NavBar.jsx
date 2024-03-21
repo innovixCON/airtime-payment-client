@@ -1,12 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../components/css/style.css";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import useAuthStore from "../components/hooks/UseAuthStore";
+import Avatar from '@mui/material/Avatar';
+import {  useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  const { AuthStatus, setAuthStatus ,setAuthProfile} = useAuthStore();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const handleLogout = () => {
+    setAuthStatus(false);
+    localStorage.removeItem('userData');
+    setAuthProfile({});
+    navigate("/");
+  };
+
+  const toggleDropdown = () => {
+    setShowDropdown((prevState) => !prevState);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="navbar">
@@ -14,21 +45,26 @@ const Navbar = () => {
         <img src={logo} alt="Call Africa Logo" className="logo pb-2 pt-2" />
       </Link>
       <div className={click ? "links active" : "links"}>
-        <Link to="/">
-          <h1>Home</h1>
-        </Link>
-        <Link to="/about">
-          <h1>About</h1>
-        </Link>
-        <Link to="/services">
-          <h1>Services</h1>
-        </Link>
-        <Link to="/contactUs">
-          <h1>Contact Us</h1>
-        </Link>
-        <Link to="/login">
-          <h1>Login</h1>
-        </Link>
+        <NavLink exact to="/" label="Home" />
+        <NavLink to="/about" label="About" />
+        <NavLink to="/services" label="Services" />
+        <NavLink to="/contactUs" label="Contact Us" />
+        <div className="">
+          {AuthStatus ? (
+            <div className="avatar-dropdown">
+              <Avatar onClick={toggleDropdown}>A</Avatar>
+              {showDropdown && (
+                <div ref={dropdownRef} className="dropdown flex-col w-24">
+                  <button >setting</button>
+                  <button>profile</button>
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <NavLink to="/login" label="Login" />
+          )}
+        </div>
       </div>
       <div className="hamburger" onClick={handleClick}>
         {click ? (
@@ -38,6 +74,16 @@ const Navbar = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const NavLink = ({ to, label }) => {
+  const { pathname } = useLocation();
+  const isActive = pathname === to;
+  return (
+    <Link to={to}>
+      <h1 className={isActive ? "active-link" : ""}>{label}</h1>
+    </Link>
   );
 };
 
