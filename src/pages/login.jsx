@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../components/hooks/UseAuthStore";
 import axios from "axios";
 import Footer from "../components/footer";
-
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -11,19 +10,15 @@ function Login() {
   const { setAuthStatus, setAuthToken, setAuthProfile } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
-
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
       const response = await axios.post(
         "https://call-africa-a27ed3a5b0f4.herokuapp.com/api/auth/login",
@@ -32,7 +27,6 @@ function Login() {
           password,
         }
       );
-
       setAuthToken(response.data.data.token);
       localStorage.setItem('AuthToken', response.data.data.token);
       localStorage.setItem('UserData', JSON.stringify(response.data.user));
@@ -40,8 +34,6 @@ function Login() {
       setAuthStatus(true);
       console.log("Login successful:", response.data.message);
       navigate("/dashboard/");
-    
-
     } catch (error) {
       setError(error.response.data.error);
     } finally {
@@ -56,7 +48,6 @@ function Login() {
           <h1 className="text-4xl font-bold text-center text-gray-700 mb-4">
             Call Africa
           </h1>
-
           <p className="text-center text-base text-gray-500 px-6">
             Login to your account
           </p>
@@ -65,7 +56,6 @@ function Login() {
               <span className="block sm:inline">{error}</span>
             </div>
           )}
-
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
@@ -84,7 +74,6 @@ function Login() {
                 required
               />
             </div>
-
             <div>
               <label
                 className="block text-base font-medium text-gray-700"
@@ -102,13 +91,11 @@ function Login() {
                 required
               />
             </div>
-
             <div className="flex justify-between items-center">
               <span className="text-base font-medium text-gray-500 hover:text-indigo-500 cursor-pointer">
                 Forgot password?
               </span>
             </div>
-
             <button
               type="submit"
               className="w-full bg-red-700 text-white py-3 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-colors duration-200"
@@ -117,7 +104,6 @@ function Login() {
               {isLoading ? "Loading..." : "Login"}
             </button>
           </form>
-
           <div className="flex justify-center mt-4">
             <span className="text-base font-medium text-gray-500">
               Don't have an account?{" "}
@@ -135,5 +121,4 @@ function Login() {
     </>
   );
 }
-
 export default Login;

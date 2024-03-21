@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-col grow bg-light-bg mt-20">
+    <div className="flex flex-col grow bg-light mt-20">
       <div className="flex flex-row pb-8 justify-center">
         <div className="lg:ml-56 w-[90%] h-[100%]">
           <div className="grid grid-cols-2 mb-12 md:mb-24 lg:mb-0 lg:grid-cols-4">
