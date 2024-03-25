@@ -11,6 +11,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  const userData = JSON.parse( localStorage.getItem('UserData'))
   const { AuthStatus, setAuthStatus ,setAuthProfile} = useAuthStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
@@ -20,6 +21,7 @@ const Navbar = () => {
     localStorage.removeItem('userData');
     setAuthProfile({});
     navigate("/");
+    window.location.reload();
   };
 
   const toggleDropdown = () => {
@@ -38,7 +40,7 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
+  const avatarLetter = userData.email ? userData.email.charAt(0).toUpperCase() : "";
   return (
     <div className="navbar">
       <Link to="/">
@@ -52,9 +54,10 @@ const Navbar = () => {
         <div className="">
           {AuthStatus ? (
             <div className="avatar-dropdown">
-              <Avatar onClick={toggleDropdown}>A</Avatar>
+              <Avatar onClick={toggleDropdown}>{avatarLetter}</Avatar>
               {showDropdown && (
                 <div ref={dropdownRef} className="dropdown flex-col w-24">
+                  <button>Dashboard</button>
                   <button >setting</button>
                   <button>profile</button>
                   <button onClick={handleLogout}>Logout</button>
