@@ -1,5 +1,4 @@
-import { ChatIcon } from "@heroicons/react/solid";
-import React, { useEffect } from "react";
+import React from "react";
 import { userAmount } from "../components/Data";
 
 const Dashboard = () => {
@@ -17,6 +16,7 @@ const Dashboard = () => {
                 <h1 className="font-['sans] font-semibold text-4xl mb-2 text-black">
                   $ { item.amount }
                 </h1>
+
               </div>
             ))}
           </div>

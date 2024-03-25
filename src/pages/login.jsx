@@ -29,7 +29,7 @@ function Login() {
       );
       setAuthToken(response.data.data.token);
       localStorage.setItem('AuthToken', response.data.data.token);
-      localStorage.setItem('UserData', JSON.stringify(response.data.user));
+      localStorage.setItem('UserData', JSON.stringify(response.data.data.userData));
       setAuthProfile(response.data.data.userData);
       setAuthStatus(true);
       console.log("Login successful:", response.data.message);
