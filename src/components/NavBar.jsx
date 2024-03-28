@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../components/css/style.css";
 import { FaBars, FaTimes } from "react-icons/fa";
 import useAuthStore from "../components/hooks/UseAuthStore";
 import Avatar from '@mui/material/Avatar';
-import {  useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -18,7 +17,8 @@ const Navbar = () => {
 
   const handleLogout = () => {
     setAuthStatus(false);
-    localStorage.removeItem('userData');
+    localStorage.removeItem('UserData')
+    localStorage.removeItem('AuthToken')
     setAuthProfile({});
     navigate("/");
     window.location.reload();
@@ -40,7 +40,7 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  const avatarLetter = userData.email ? userData.email.charAt(0).toUpperCase() : "";
+  const avatarLetter = userData?.email ? userData?.email.charAt(0).toUpperCase() : "";
   return (
     <div className="navbar">
       <Link to="/">
@@ -57,7 +57,7 @@ const Navbar = () => {
               <Avatar onClick={toggleDropdown}>{avatarLetter}</Avatar>
               {showDropdown && (
                 <div ref={dropdownRef} className="dropdown flex-col w-24">
-                  <button>Dashboard</button>
+                  <Link to="/dashboard/">Dashboard</Link>
                   <button >setting</button>
                   <button>profile</button>
                   <button onClick={handleLogout}>Logout</button>
