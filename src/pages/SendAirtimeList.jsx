@@ -8,6 +8,8 @@ import DataTable from "../components/DataTable";
 import { DummyData } from "../components/Data";
 import { AiOutlineSend } from "react-icons/ai";
 import { Combobox, Transition } from "@headlessui/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   sendAirtimeAction,
   getRecipientsAction,
@@ -89,6 +91,9 @@ const SendAirtimeList = () => {
         amountAirtime: parseInt(amountAirtime.value),
       };
       dispatch(sendAirtimeAction(token, payload));
+      if(!loading){
+        toast.success("Airtime sent successfully");
+      }
     }
   };
 
@@ -104,6 +109,18 @@ const SendAirtimeList = () => {
           modal === true ? "block" : "hidden"
         }`}
       >
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <div className="bg-white dark:bg-dark-bg w-full sm:w-3/4  xl:w-4/12 rounded-lg p-4 pb-8">
           <div className="card-title w-full flex  flex-wrap justify-center items-center  ">
             <h3 className="font-bold text-2xl dark:text-black text-center w-11/12 ">
