@@ -22,13 +22,10 @@ export const sendAirtimeAction = (token, payload) => async (dispatch) => {
                     Authorization: token,
                 },
             })
-        console.log("Airtime", response.data)
         dispatch({
             type: SEND_AIRTIME_SUCCESS,
             payload: response.data.data
         });
-        // navigate("/dashboard/");
-        // window.location.reload();
     } catch (error) {
         dispatch({
             type: SEND_AIRTIME_FAIL
