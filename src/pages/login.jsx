@@ -4,7 +4,7 @@ import useAuthStore from "../components/hooks/UseAuthStore";
 import axios from "axios";
 import Footer from "../components/footer";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

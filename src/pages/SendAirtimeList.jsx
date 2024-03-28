@@ -9,7 +9,7 @@ import { DummyData } from "../components/Data";
 import { AiOutlineSend } from "react-icons/ai";
 import { Combobox, Transition } from "@headlessui/react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css';
 import {
   sendAirtimeAction,
   getRecipientsAction,
