@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/solid";
 import { CogIcon, } from "@heroicons/react/outline";
 import SideNavLink from "./SideNavLink";
+import CheckRole from "../ProtectedRoute";
 
 const Sidebar = ({ style, toggle }) => {
   const [togglei, setTogglei] = useState(false);
@@ -30,13 +31,13 @@ const Sidebar = ({ style, toggle }) => {
         >
           <CurrencyDollarIcon  className="w-5 mr-2" />
         </SideNavLink>
-        <SideNavLink 
+        {/* <SideNavLink 
           onClick={toggle} 
           name="payment" 
           to="/dashboard/payment"
         >
           <CurrencyDollarIcon  className="w-5 mr-2 " />
-        </SideNavLink>
+        </SideNavLink> */}
         <SideNavLink 
           onClick={toggle} 
           name="Users" 

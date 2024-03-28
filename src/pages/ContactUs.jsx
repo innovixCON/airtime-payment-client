@@ -15,7 +15,7 @@ function ContactUs() {
         setMessage('');
     };
     return (
-        <div className="bg-black min-h-screen flex flex-col justify-center items-center text-3xl py-32">
+        <div className="bg-black min-h-screen flex flex-col justify-center items-center text-3xl py-32 -mt-10">
             <div className="text-white font-light">
                 <div className="text-lg flex flex-col items-center justify-center mb-8 py-7">
                     <p className=" text-3xl">GET IN TOUCH</p>

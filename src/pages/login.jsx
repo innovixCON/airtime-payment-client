@@ -3,13 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../components/hooks/UseAuthStore";
 import axios from "axios";
 import Footer from "../components/footer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setAuthStatus, setAuthToken, setAuthProfile } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -28,22 +30,37 @@ function Login() {
         }
       );
       setAuthToken(response.data.data.token);
-      localStorage.setItem('AuthToken', response.data.data.token);
-      localStorage.setItem('UserData', JSON.stringify(response.data.data.userData));
+      localStorage.setItem("AuthToken", response.data.data.token);
+      localStorage.setItem(
+        "UserData",
+        JSON.stringify(response.data.data.userData)
+      );
       setAuthProfile(response.data.data.userData);
       setAuthStatus(true);
+      toast.success(response.data.message);
       console.log("Login successful:", response.data.message);
       navigate("/dashboard/");
     } catch (error) {
-      setError(error.response.data.error);
+      setError(error.response);
     } finally {
       setIsLoading(false);
     }
   };
-// console.log("user profile", AuthToken)
   return (
     <>
       <div className="bg-white min-h-full h-screen flex justify-center px-4 sm:px-6 lg:px-8 top-0">
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <div className="bg-white w-full max-w-2xl border p-8 rounded-lg shadow-lg h-auto my-auto">
           <h1 className="text-4xl font-bold text-center text-gray-700 mb-4">
             Call Africa
@@ -52,7 +69,10 @@ function Login() {
             Login to your account
           </p>
           {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+              role="alert"
+            >
               <span className="block sm:inline">{error}</span>
             </div>
           )}
