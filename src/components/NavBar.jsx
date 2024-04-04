@@ -10,8 +10,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  const token = localStorage.getItem("AuthToken");
+
   const userData = JSON.parse( localStorage.getItem('UserData'))
-  const { AuthStatus, setAuthStatus ,setAuthProfile} = useAuthStore();
+  const {setAuthStatus ,setAuthProfile} = useAuthStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -52,7 +54,7 @@ const Navbar = () => {
         <NavLink to="/services" label="Services" />
         <NavLink to="/contactUs" label="Contact Us" />
         <div className="">
-          {AuthStatus ? (
+          {token  && userData ? (
             <div className="avatar-dropdown">
               <Avatar onClick={toggleDropdown}>{avatarLetter}</Avatar>
               {showDropdown && (
