@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import Dashboard from "../pages/Dashboard";
 import SendAirtimeList from "../pages/SendAirtimeList";
 import CheckRole from "../ProtectedRoute"; // Import the CheckRole component
+import SendAirtime from "../pages/SendAirtime";
 
 const DashboardRoutes = () => {
   const [nav, setNav] = useState(false);
@@ -13,7 +14,6 @@ const DashboardRoutes = () => {
     <div className="flex flex-col min-h-screen">
       <Sidebar toggle={handleClick} style="hidden lg:flex" />
       <Routes>
-        {/* Wrap each route with the CheckRole component */}
         <Route
           path="/"
           element={
@@ -27,6 +27,14 @@ const DashboardRoutes = () => {
           element={
             <CheckRole>
               <SendAirtimeList />
+            </CheckRole>
+          }
+        />
+        <Route 
+          path="/sendAirtime"
+          element={
+            <CheckRole>
+              <SendAirtime />
             </CheckRole>
           }
         />
