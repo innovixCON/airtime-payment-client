@@ -3,13 +3,15 @@ import { thunk } from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { 
     getRecipientsReducers, 
-    sendAirtimeReducers 
+    sendAirtimeReducers, 
+    totalAirtimeUserSentReducers
 } from "./reducers/airtimeReducers";
 
 
 const reducer = combineReducers({
     sendAirtime:sendAirtimeReducers,
-    getRecipients: getRecipientsReducers
+    getRecipients: getRecipientsReducers,
+    totalAirtimeUserSent:totalAirtimeUserSentReducers
 })
 
 const initialState = { initial: "" }
