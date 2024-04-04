@@ -4,32 +4,37 @@ import {
   LogoutIcon,
   UserIcon,
   UsersIcon,
-  CurrencyDollarIcon
+  CurrencyDollarIcon,
 } from "@heroicons/react/solid";
-import { CogIcon, } from "@heroicons/react/outline";
+import { CogIcon } from "@heroicons/react/outline";
 import SideNavLink from "./SideNavLink";
-import CheckRole from "../ProtectedRoute";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "./hooks/UseAuthStore";
 
 const Sidebar = ({ style, toggle }) => {
   const [togglei, setTogglei] = useState(false);
+  const navigate = useNavigate()
   useEffect(() => {}, [togglei]);
+  const {setAuthStatus ,setAuthProfile} = useAuthStore();
+
+  const handleLogout = () => {
+    setAuthStatus(false);
+    localStorage.removeItem("UserData");
+    localStorage.removeItem("AuthToken");
+    setAuthProfile({});
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <div
       className={`${style} flex-col fixed h-[100%] pt-[3vh] lg:pt-[5vh] bg-white border-r p-2`}
     >
       <div className="list-none pr-8">
-        <SideNavLink 
-        onClick={toggle}
-         name="Dashboard" 
-         to="/dashboard/">
+        <SideNavLink onClick={toggle} name="Dashboard" to="/dashboard/">
           <ChartPieIcon className="w-5 mr-2 " />
         </SideNavLink>
-        <SideNavLink 
-          onClick={toggle} 
-          name="airtime" 
-          to="/dashboard/airtime"
-        >
-          <CurrencyDollarIcon  className="w-5 mr-2" />
+        <SideNavLink onClick={toggle} name="airtime" to="/dashboard/airtime">
+          <CurrencyDollarIcon className="w-5 mr-2" />
         </SideNavLink>
         {/* <SideNavLink 
           onClick={toggle} 
@@ -38,36 +43,21 @@ const Sidebar = ({ style, toggle }) => {
         >
           <CurrencyDollarIcon  className="w-5 mr-2 " />
         </SideNavLink> */}
-        <SideNavLink 
-          onClick={toggle} 
-          name="Users" 
-          to="/dashboard/users"
-        >
+        <SideNavLink onClick={toggle} name="Users" to="/dashboard/users">
           <UsersIcon className="w-5 mr-2 " />
         </SideNavLink>
-        <SideNavLink
-          onClick={toggle}
-          name="Profile"
-          to="/dashboard/profile"
-        >
+        <SideNavLink onClick={toggle} name="Profile" to="/dashboard/profile">
           <UserIcon className="w-5 mr-2 " />
         </SideNavLink>
-        <SideNavLink 
-          to="/dashboard/settings"
-          name="setting"
-         >
+        <SideNavLink to="/dashboard/settings" name="setting">
           <CogIcon className="w-5 hover:text-primary " onClick={toggle} />
         </SideNavLink>
-        <SideNavLink 
-          onClick={toggle} 
-          name="Logout" 
-          to="/logout"
-        >
+        <SideNavLink onClick={handleLogout} name="Logout" to="/logout">
           <LogoutIcon className="w-5 mr-2 " />
         </SideNavLink>
       </div>
     </div>
   );
-}
+};
 
 export default Sidebar;
