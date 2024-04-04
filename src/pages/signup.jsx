@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAuthStore  from "../components/hooks/UseAuthStore";
+import { ToastContainer, toast } from 'react-toastify';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -24,7 +25,8 @@ function SignUp() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('https://call-africa-a27ed3a5b0f4.herokuapp.com/api/auth/signup', {
+      setIsLoading(true);
+      const response = await axios.post('http://localhost:3001/api/auth/signup', {
         username: formData.username,
         email: formData.email,
         phoneNumber: formData.phoneNumber,
@@ -32,8 +34,14 @@ function SignUp() {
       });
 
       console.log('Signup successful:', response.data);
-      navigate('/login');
+      toast.success(response.data.message);
+
+      setTimeout(()=>{
+        navigate('/login');
+      }, 3000)
+
       setAuthStatus(true);
+      setIsLoading(false);
     } catch (error) {
       setError(error.response.data.error);
       console.error('Signup error:', error.response.data.error)
@@ -43,6 +51,18 @@ function SignUp() {
 
   return (
     <div className="bg-white min-h-full h-screen flex justify-center px-4 sm:px-6 lg:px-8 top-0">
+      <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       <div className="bg-white w-full max-w-2xl border p-8 rounded-lg shadow-lg h-auto my-auto">
         <h1 className="text-4xl font-bold text-center text-gray-700 mb-4">
           Call Africa
