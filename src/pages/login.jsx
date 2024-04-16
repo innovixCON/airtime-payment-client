@@ -4,48 +4,50 @@ import useAuthStore from "../components/hooks/UseAuthStore";
 import axios from "axios";
 import Footer from "../components/footer";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setAuthStatus, setAuthToken, setAuthProfile } = useAuthStore();
+  const { setAuthStatus, setAuthToken, setAuthProfile, status,AuthProfile } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post("http://localhost:3001/api/auth/login", {
+        email,
+        password,
+      });
+
       setAuthToken(response.data.data.token);
       localStorage.setItem("AuthToken", response.data.data.token);
-      localStorage.setItem(
-        "UserData",
-        JSON.stringify(response.data.data.userData)
-      );
+      localStorage.setItem("UserData", JSON.stringify(response.data.data.userData));
       setAuthProfile(response.data.data.userData);
       setAuthStatus(true);
       toast.success(response.data.message);
       console.log("Login successful:", response.data.message);
       navigate("/dashboard/");
+      // console.log("data zacu", AuthProfile);
     } catch (error) {
       setError(error.response);
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <>
       <div className="bg-white min-h-full h-screen flex justify-center px-4 sm:px-6 lg:px-8 top-0">
