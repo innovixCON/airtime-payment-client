@@ -5,6 +5,8 @@ import Dashboard from "../pages/Dashboard";
 import SendAirtimeList from "../pages/SendAirtimeList";
 import CheckRole from "../ProtectedRoute"; // Import the CheckRole component
 import SendAirtime from "../pages/SendAirtime";
+import SendSmsList from "../pages/sendSmsList";
+import SendSms from "../pages/sendSms";
 
 const DashboardRoutes = () => {
   const [nav, setNav] = useState(false);
@@ -30,11 +32,28 @@ const DashboardRoutes = () => {
             </CheckRole>
           }
         />
+       
         <Route 
           path="/sendAirtime"
           element={
             <CheckRole>
               <SendAirtime />
+            </CheckRole>
+          }
+        />
+          <Route
+          path="/sms"
+          element={
+            <CheckRole>
+              <SendSmsList />
+            </CheckRole>
+          }
+        />
+           <Route 
+          path="/sendSms"
+          element={
+            <CheckRole>
+              <SendSms />
             </CheckRole>
           }
         />
