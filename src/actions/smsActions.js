@@ -51,3 +51,25 @@ export const sendSmsAction = (token, payload) => async (dispatch) => {
       })
     }
 }
+
+export const sendSmsToMultipleUsers = async (data) => {
+    const token = localStorage.getItem("AuthToken");
+    for (const row of data.slice(1)) {
+        const phone = `0${row[0]}`
+        const messageText = row[1];
+        try {
+            const result = await axios.post("http://localhost:3001/api/sms/sendMessage", {
+                phone:phone,
+                messageText:messageText,
+            }, {
+                headers: {
+                    Authorization: token,
+                },
+            });
+            console.log("res",result.data)
+            console.log(`Airtime sent successfully to ${phone}: ${result}`);
+        } catch (error) {
+            console.error(`Failed to send airtime to ${phone}`);
+        }
+    }
+};

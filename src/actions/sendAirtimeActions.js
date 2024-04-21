@@ -39,7 +39,7 @@ export const sendAirtimeToMultipleUsers = async (data) => {
     const token = localStorage.getItem("AuthToken");
     for (const row of data.slice(1)) {
         const name = row[0]
-        const phoneNumber = row[1];
+        const phoneNumber = `0${row[1]}`;
         const amount = parseInt(row[2])
         
         try {
