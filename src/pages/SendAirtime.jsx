@@ -160,7 +160,7 @@ const SendAirtime = () => {
                 type="text"
                 value={receiverAirtimeNumber}
                 onChange={onReceiverPhoneChange}
-                placeholder="Enter receiver's phone number ex:78 / 79"
+                placeholder="Enter receiver's phone number ex:078 / 079"
                 required
                 className="w-full mt-2 p-2 text-sm text-gray-500 font-sans border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
               />

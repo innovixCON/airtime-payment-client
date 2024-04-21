@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  sendAirtimeAction,
-  sendAirtimeToMultipleUsers,
-} from "../actions/sendAirtimeActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
-import { sendSmsAction } from "../actions/smsActions";
+import { sendSmsAction ,sendSmsToMultipleUsers } from "../actions/smsActions";
 
 const SendSms = () => {
   const navigate = useNavigate();
@@ -50,7 +46,7 @@ const SendSms = () => {
       console.log("Parsed data:", parsedData);
 
       try {
-        await sendAirtimeToMultipleUsers(parsedData);
+        await sendSmsToMultipleUsers(parsedData);
         toast.success("Airtime sent successfully");
       } catch (error) {
         console.error("Error sending airtime:", error);
@@ -70,9 +66,9 @@ const SendSms = () => {
       toast.error("Please enter the message to send!");
       return;
     }
-
+    const phoneNumbers = phone.split(',');
     const payload = {
-      phone: phone.split(','),
+      phone: phoneNumbers.map((phone) => {return phone}),
       messageText: message
     };
     console.log("Payload:", payload)
@@ -141,7 +137,7 @@ const SendSms = () => {
               <input
                 type="text"
                 value={phone}
-                placeholder="Enter receiver's phone number ex:78 / 79"
+                placeholder="Enter receiver's phone number ex:078/079"
                 onChange={onPhoneChange}
                 className="w-full mt-2 p-2 text-sm text-gray-500 font-sans border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
                 required
@@ -160,17 +156,6 @@ const SendSms = () => {
                 className="w-full mt-2 p-2 text-sm text-gray-500 font-sans border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
               ></textarea>
             </div>
-            {/* <div className="input mt-3">
-              <label className="mb-2">Amount</label>
-              <input
-                type="number"
-                value={amountAirtime}
-                onChange={onAmountAirtimeChange}
-                placeholder="Enter amount"
-                required
-                className="w-full mt-2 p-2 text-sm text-gray-500 font-sans border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
-              />
-            </div> */}
             <div className="w-full mt-2 flex justify-center items-center">
               <button
                 className="w-full md:w-full flex justify-center font-sans group relative py-2 px-4 border
@@ -179,7 +164,7 @@ const SendSms = () => {
                 type="submit"
                 disabled={loading}
               >
-                Send Message from Form
+                { loading ? "Send Messages......" : "Send Message from Form"}
               </button>
             </div>
           </form>
