@@ -6,7 +6,11 @@ import {
     sendAirtimeReducers, 
     totalAirtimeUserSentReducers
 } from "./reducers/airtimeReducers";
-import { getSmsListReducers, sendSmsReducers } from "./reducers/smsReducers";
+import { 
+    getSmsListReducers, 
+    sendSmsReducers, 
+    totalSmsReducers 
+} from "./reducers/smsReducers";
 
 
 const reducer = combineReducers({
@@ -14,7 +18,8 @@ const reducer = combineReducers({
     getRecipients: getRecipientsReducers,
     totalAirtimeUserSent:totalAirtimeUserSentReducers,
     getSms: getSmsListReducers,
-    sendSms: sendSmsReducers
+    sendSms: sendSmsReducers,
+    totalSms: totalSmsReducers
 })
 
 const initialState = { initial: "" }

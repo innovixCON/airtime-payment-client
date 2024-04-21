@@ -5,7 +5,11 @@ import {
     GET_SMS_LIST_FAIL,
     SEND_SMS_REQUEST,
     SEND_SMS_SUCCESS,
-    SEND_SMS_FAIL
+    SEND_SMS_FAIL,
+    TOTAL_SMS_SUCCESS,
+    TOTAL_SMS_FAIL,
+    TOTAL_SMS_REQUEST
+
 } from "./types";
 
 export const getSmsListAction = (token) => async (dispatch) => {
@@ -73,3 +77,24 @@ export const sendSmsToMultipleUsers = async (data) => {
         }
     }
 };
+
+export const totalSmsAction = (token) => async (dispatch) => {
+    try {
+        dispatch({
+            type: TOTAL_SMS_REQUEST
+        })
+        const response = await axios.get("http://localhost:3001/api/sms/totalSms",{
+            headers: {
+                Authorization: token,
+            },
+        })
+        dispatch({
+            type: TOTAL_SMS_SUCCESS,
+            payload: response.data.data
+        });
+    } catch (error) {
+        dispatch({
+            type: TOTAL_SMS_FAIL
+        })
+    }
+}
