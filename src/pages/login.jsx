@@ -27,7 +27,7 @@ function Login() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3001/api/auth/login", {
+      const response = await axios.post("https://call-afric-aaba9bbf4c5c.herokuapp.com/api/auth/login", {
         email,
         password,
       });

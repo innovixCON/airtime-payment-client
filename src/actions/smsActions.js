@@ -17,7 +17,7 @@ export const getSmsListAction = (token) => async (dispatch) => {
         dispatch({
             type: GET_SMS_LIST_REQUEST
         })
-        const response = await axios.get("http://localhost:3001/api/sms/viewSms",{
+        const response = await axios.get("https://call-afric-aaba9bbf4c5c.herokuapp.com/api/sms/viewSms",{
             headers: {
                 Authorization: token,
             },
@@ -39,7 +39,7 @@ export const sendSmsAction = (token, payload) => async (dispatch) => {
       dispatch({
           type: SEND_SMS_REQUEST
       })
-      const response = await axios.post("http://localhost:3001/api/sms/sendMessage", payload,{
+      const response = await axios.post("https://call-afric-aaba9bbf4c5c.herokuapp.com/api/sms/sendMessage", payload,{
           headers: {
               Authorization: token,
           },
@@ -62,7 +62,7 @@ export const sendSmsToMultipleUsers = async (data) => {
         const phone = `0${row[0]}`
         const messageText = row[1];
         try {
-            const result = await axios.post("http://localhost:3001/api/sms/sendMessage", {
+            const result = await axios.post("https://call-afric-aaba9bbf4c5c.herokuapp.com/api/sms/sendMessage", {
                 phone:phone,
                 messageText:messageText,
             }, {
@@ -83,7 +83,7 @@ export const totalSmsAction = (token) => async (dispatch) => {
         dispatch({
             type: TOTAL_SMS_REQUEST
         })
-        const response = await axios.get("http://localhost:3001/api/sms/totalSms",{
+        const response = await axios.get("https://call-afric-aaba9bbf4c5c.herokuapp.com/api/sms/totalSms",{
             headers: {
                 Authorization: token,
             },

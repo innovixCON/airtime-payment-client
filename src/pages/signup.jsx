@@ -26,7 +26,7 @@ function SignUp() {
 
     try {
       setIsLoading(true);
-      const response = await axios.post('http://localhost:3001/api/auth/signup', {
+      const response = await axios.post('https://call-afric-aaba9bbf4c5c.herokuapp.com/api/auth/signup', {
         username: formData.username,
         email: formData.email,
         phoneNumber: formData.phoneNumber,

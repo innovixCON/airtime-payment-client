@@ -16,7 +16,7 @@ export const sendAirtimeAction = (token, payload) => async (dispatch) => {
         dispatch({
             type: SEND_AIRTIME_REQUEST
         })
-        const response = await axios.post("http://localhost:3001/api/recipients/sendAirtime",
+        const response = await axios.post("https://call-afric-aaba9bbf4c5c.herokuapp.com/api/recipients/sendAirtime",
             payload,
             {
                 headers: {
@@ -43,7 +43,7 @@ export const sendAirtimeToMultipleUsers = async (data) => {
         const amount = parseInt(row[2])
         
         try {
-            const result = await axios.post("http://localhost:3001/api/recipients/sendAirtime", {
+            const result = await axios.post("https://call-afric-aaba9bbf4c5c.herokuapp.com/api/recipients/sendAirtime", {
                 receiverAirtimeNumber:phoneNumber,
                 amountAirtime:amount,
                 Name:name
@@ -66,7 +66,7 @@ export const getRecipientsAction = (token) => async (dispatch) => {
         dispatch({
             type: GET_RECIPIENTS_REQUEST
         })
-        const response = await axios.get("http://localhost:3001/api/recipients/viewRecipient",{
+        const response = await axios.get("https://call-afric-aaba9bbf4c5c.herokuapp.com/api/recipients/viewRecipient",{
             headers: {
                 Authorization: token,
             },
@@ -87,7 +87,7 @@ export const totalAirtimeUserSentAction = (token) => async (dispatch) => {
         dispatch({
             type: TOTAL_AIRTIME_USER_SENT_REQUEST
         })
-        const response = await axios.get("http://localhost:3001/api/recipients/totalAmountSentByUser",{
+        const response = await axios.get("https://call-afric-aaba9bbf4c5c.herokuapp.com/api/recipients/totalAmountSentByUser",{
             headers: {
                 Authorization: token,
             },
