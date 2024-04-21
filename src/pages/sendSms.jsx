@@ -8,15 +8,16 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
+import { sendSmsAction } from "../actions/smsActions";
 
 const SendSms = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
-  const [amountAirtime, setAmountAirtime] = useState("");
-  const [receiverAirtimeNumber, setReceiverAirtimeNumber] = useState("");
-  const [name, setName] = useState("");
-  const { loading } = useSelector((state) => state.sendAirtime);
+  const [phone, setPhone] = useState([]);
+  const [message, setMessage] = useState("");
+  const { loading } = useSelector((state) => state.sendSms);
+  
   const token = localStorage.getItem("AuthToken");
 
   const handleFileUpload = (e) => {
@@ -24,16 +25,12 @@ const SendSms = () => {
     setFile(selectedFile);
   };
 
-  const onAmountAirtimeChange = (e) => {
-    setAmountAirtime(e.target.value);
+  const onMessageChange = (e) => {
+    setMessage(e.target.value);
   };
 
-  const onReceiverPhoneChange = (e) => {
-    setReceiverAirtimeNumber(e.target.value);
-  };
-
-  const onNameChange = (e) =>{
-    setName(e.target.value)
+  const onPhoneChange = (e) =>{
+    setPhone(e.target.value)
   };
 
   const handleSubmitFile = async (e) => {
@@ -65,26 +62,22 @@ const SendSms = () => {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    if (!amountAirtime.trim()) {
-      toast.error("Please enter the amount");
+    if (!phone || phone.length === 0) {
+      toast.error("Please enter the phone number to send");
       return;
     }
-    if (!receiverAirtimeNumber.trim()) {
-      toast.error("Please enter the receiver's phone number");
-      return;
-    }
-    if(!name){
-      toast.error("Please enter the receiver's name");
+    if (!message) {
+      toast.error("Please enter the message to send!");
       return;
     }
 
     const payload = {
-      receiverAirtimeNumber: receiverAirtimeNumber,
-      amountAirtime: parseInt(amountAirtime),
-      Name:name
+      phone: phone.split(','),
+      messageText: message
     };
-    dispatch(sendAirtimeAction(token, payload));
-      toast.success("Airtime sent successfully");
+    console.log("Payload:", payload)
+    dispatch(sendSmsAction(token, payload));
+      toast.success("sms sent successfully");
   };
 
   return (
@@ -144,28 +137,30 @@ const SendSms = () => {
 
           <form className="py-3 px-1" onSubmit={handleSubmitForm}>
           <div className="input">
-              <label className="mb-2">Name</label>
+              <label className="mb-2">Phone</label>
               <input
                 type="text"
-                value={name}
-                placeholder="Enter receiver's name"
-                onChange={onNameChange}
-                className="w-full mt-2 p-2 text-sm text-gray-500 font-sans border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
-                required
-              />
-            </div>
-            <div className="input mt-3">
-              <label className="mb-2">Phone Number</label>
-              <input
-                type="text"
-                value={receiverAirtimeNumber}
-                onChange={onReceiverPhoneChange}
+                value={phone}
                 placeholder="Enter receiver's phone number ex:78 / 79"
-                required
+                onChange={onPhoneChange}
                 className="w-full mt-2 p-2 text-sm text-gray-500 font-sans border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                required
               />
             </div>
             <div className="input mt-3">
+              <label className="mb-2">Message</label>
+              <textarea
+                type="text"
+                id="message"
+                value={message}
+                onChange={onMessageChange}
+                placeholder="Enter message to send"
+                required
+                rows="10"
+                className="w-full mt-2 p-2 text-sm text-gray-500 font-sans border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+              ></textarea>
+            </div>
+            {/* <div className="input mt-3">
               <label className="mb-2">Amount</label>
               <input
                 type="number"
@@ -175,7 +170,7 @@ const SendSms = () => {
                 required
                 className="w-full mt-2 p-2 text-sm text-gray-500 font-sans border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
               />
-            </div>
+            </div> */}
             <div className="w-full mt-2 flex justify-center items-center">
               <button
                 className="w-full md:w-full flex justify-center font-sans group relative py-2 px-4 border

@@ -3,41 +3,29 @@ import { XCircleIcon } from "@heroicons/react/solid";
 import DataTable from "../components/DataTable";
 import { AiOutlineSend } from "react-icons/ai";
 import "react-toastify/dist/ReactToastify.css";
-import { getRecipientsAction } from "../actions/sendAirtimeActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { getSmsListAction } from "../actions/smsActions";
 
 const SendSmsList = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("AuthToken");
-  const { recipients } = useSelector((state) => state.getRecipients);
+  const { loading, smsList } = useSelector((state) => state.getSms);
 
   const columns = [
     {
       Header: "createdAt",
       accessor: "createdAt",
-      Cell: ({ value }) => moment(value).format("MMM Do YY")
+      Cell: ({ value }) => moment(value).format("MMM Do YY"),
     },
     {
-      Header: "Name",
-      accessor: "Name",
+      Header: "Phone",
+      accessor: "phone",
     },
     {
-      Header: "Amount Airtime",
-      accessor: "amountAirtime",
-    },
-    {
-      Header: "Provider",
-      accessor: "customerName",
-    },
-    {
-      Header: "Receiver Airtime Number",
-      accessor: "receiverAirtimeNumber",
-    },
-    {
-        Header: "Message",
-        accessor: "message",
+      Header: "Message",
+      accessor: "messageText",
     },
     {
       Header: "Action",
@@ -57,7 +45,7 @@ const SendSmsList = () => {
   ];
 
   useEffect(() => {
-    dispatch(getRecipientsAction(token));
+    dispatch(getSmsListAction(token));
   }, []);
   return (
     <>
@@ -76,18 +64,16 @@ const SendSmsList = () => {
               </div>
             </div>
             <div className="m-4 md:m-1 mt-10">
-              {recipients?.length > 0 ? (
+              {smsList?.length > 0 ? (
                 <DataTable
-                  data={recipients}
+                  data={smsList}
                   columns={columns}
-                  title="Airtime Lists"
+                  title="SMS Lists"
                   placeholder=""
                 />
               ) : (
                 <>
-                  <h3>
-                    No recipients found for this time, start sending Sms!
-                  </h3>
+                  <h3>No Messages found for this time, start sending Sms!</h3>
                 </>
               )}
             </div>

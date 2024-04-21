@@ -6,12 +6,15 @@ import {
     sendAirtimeReducers, 
     totalAirtimeUserSentReducers
 } from "./reducers/airtimeReducers";
+import { getSmsListReducers, sendSmsReducers } from "./reducers/smsReducers";
 
 
 const reducer = combineReducers({
     sendAirtime:sendAirtimeReducers,
     getRecipients: getRecipientsReducers,
-    totalAirtimeUserSent:totalAirtimeUserSentReducers
+    totalAirtimeUserSent:totalAirtimeUserSentReducers,
+    getSms: getSmsListReducers,
+    sendSms: sendSmsReducers
 })
 
 const initialState = { initial: "" }
